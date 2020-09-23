@@ -1,6 +1,6 @@
 {
     "name": "xiaker/bloom-filter",
-    "description": "A bloom filter by PHP & Redis",
+    "description": "A bloom filter wrote by PHP & storaged by Redis",
     "type": "library",
     "require": {
         "php": ">=7.2",
