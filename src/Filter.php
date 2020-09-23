@@ -5,10 +5,16 @@ declare(strict_types=1);
 namespace Xiaker\Bloom;
 
 use Redis;
+use Xiaker\Bloom\Bucket\Bucket;
 use Xiaker\Bloom\Digest\Digest;
 
-class Filter
+class Filter implements FilterInterface
 {
+    /**
+     * @var Bucket
+     */
+    protected $bucket;
+
     /**
      * @var Digest[]
      */
@@ -19,20 +25,16 @@ class Filter
      */
     protected $redis;
 
-    /**
-     * Filter constructor.
-     * @param Redis $redis
-     * @param Digest ...$digests
-     */
-    public function __construct(Redis $redis, Digest ...$digests)
+    public function __construct(Bucket $bucket, Redis $redis, Digest ...$digests)
     {
+        $this->bucket = $bucket;
         $this->redis = $redis;
         $this->digests = $digests;
     }
 
     public function add(string $string)
     {
-        $bucket = $this->getBucket($string);
+        $bucket = $this->bucket->get($string);
 
         $pipe = $this->redis->multi();
         foreach ($this->digests as $digest) {
@@ -44,7 +46,7 @@ class Filter
 
     public function exists(string $string)
     {
-        $bucket = $this->getBucket($string);
+        $bucket = $this->bucket->get($string);
 
         $pipe = $this->redis->multi();
         $length = strlen($string);
@@ -62,16 +64,5 @@ class Filter
         }
 
         return true;
-    }
-
-    protected function getBucket(string $string)
-    {
-        $length = strlen($string);
-
-        if ($length <= 1) {
-            return '__bloom:small';
-        }
-
-        return '__bloom:' . substr(md5($string), 0, 2);
     }
 }

@@ -2,10 +2,6 @@
     "name": "xiaker/bloom-filter",
     "description": "A bloom filter wrote by PHP & storaged by Redis",
     "type": "library",
-    "require": {
-        "php": ">=7.2",
-        "ext-redis": "*"
-    },
     "license": "MIT",
     "authors": [
         {
@@ -13,12 +9,21 @@
             "email": "fatrbaby@qq.com"
         }
     ],
+    "require": {
+        "php": ">=7.2",
+        "ext-redis": "*"
+    },
+    "require-dev": {
+        "symfony/finder": "^5.1"
+    },
     "autoload": {
         "psr-4": {
             "Xiaker\\Bloom\\": "src"
         }
     },
-    "require-dev": {
-        "symfony/finder": "^5.1"
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests"
+        }
     }
 }
