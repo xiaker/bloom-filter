@@ -11,28 +11,28 @@ composer require xiaker/bloom-filter
 ...
 
 use Xiaker\Bloom\Bucket\ModBucket;
-use Xiaker\Bloom\Digest\BkdrDigest;
-use Xiaker\Bloom\Digest\DekDigest;
-use Xiaker\Bloom\Digest\DjbDigest;
-use Xiaker\Bloom\Digest\ElfDigest;
-use Xiaker\Bloom\Digest\FnvDigest;
-use Xiaker\Bloom\Digest\JsDigest;
-use Xiaker\Bloom\Digest\PjwDigest;
-use Xiaker\Bloom\Digest\SdbDigest;
+use Xiaker\Bloom\Digest\BKDRDigest;
+use Xiaker\Bloom\Digest\DEKDigest;
+use Xiaker\Bloom\Digest\DJBDigest;
+use Xiaker\Bloom\Digest\ELFDigest;
+use Xiaker\Bloom\Digest\FNVDigest;
+use Xiaker\Bloom\Digest\JSDigest;
+use Xiaker\Bloom\Digest\PJWDigest;
+use Xiaker\Bloom\Digest\SDBMDigest;
 use Xiaker\Bloom\Filter;
 
 $redis = new Redis();
 $redis->connect('127.0.0.1');
 
 $digests = [ // you can select several or all of them
-    new BkdrDigest(),
-    new DekDigest(),
-    new DjbDigest(),
-    new ElfDigest(),
-    new FnvDigest(),
-    new JsDigest(),
-    new PjwDigest(),
-    new SdbDigest(),
+    new BKDRDigest(),
+    new DEKDigest(),
+    new DJBDigest(),
+    new ELFDigest(),
+    new FNVDigest(),
+    new JSDigest(),
+    new PJWDigest(),
+    new SDBMDigest(),
 ];
 
 $filter = new Filter(new ModBucket(24), $redis, ...$digests);

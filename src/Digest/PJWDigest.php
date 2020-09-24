@@ -5,9 +5,9 @@ declare(strict_types=1);
 namespace Xiaker\Bloom\Digest;
 
 /**
- * found by Peter J. Weinberger.
+ * Invented by Peter J. Weinberger of AT＆T
  */
-class PjwDigest implements Digest
+class PJWDigest implements Digest
 {
     public function hash($string, $length = null)
     {

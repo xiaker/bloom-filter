@@ -4,10 +4,14 @@ declare(strict_types=1);
 
 namespace Xiaker\Bloom\Digest;
 
-class ElfDigest implements Digest
+/**
+ * From "The C Programming Language" author: Brian Kernighan & Dennis Ritchie
+ */
+class BKDRDigest implements Digest
 {
     public function hash($string, $length = null)
     {
+        $seed = 131;  // 31 131 1313 13131 131313 etc..
         $hash = 0;
 
         if (null === $length) {
@@ -15,12 +19,7 @@ class ElfDigest implements Digest
         }
 
         for ($i = 0; $i < $length; ++$i) {
-            $hash = ($hash << 4) + ord($string[$i]);
-            $x = $hash & 0xF0000000;
-            if (0 != $x) {
-                $hash ^= ($x >> 24);
-            }
-            $hash &= ~$x;
+            $hash = (int) (($hash * $seed) + ord($string[$i]));
         }
 
         return ($hash % 0xFFFFFFFF) & 0xFFFFFFFF;

@@ -34,7 +34,7 @@ class Filter implements FilterInterface
 
     public function add(string $string)
     {
-        $bucket = $this->bucket->get($string);
+        $bucket = $this->bucket->dispatch($string);
 
         $pipe = $this->redis->multi();
         foreach ($this->digests as $digest) {
@@ -46,7 +46,7 @@ class Filter implements FilterInterface
 
     public function exists(string $string)
     {
-        $bucket = $this->bucket->get($string);
+        $bucket = $this->bucket->dispatch($string);
 
         $pipe = $this->redis->multi();
         $length = strlen($string);

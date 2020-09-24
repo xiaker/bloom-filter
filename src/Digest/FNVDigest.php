@@ -4,7 +4,10 @@ declare(strict_types=1);
 
 namespace Xiaker\Bloom\Digest;
 
-class FnvDigest implements Digest
+/**
+ * @see http://www.isthe.com/chongo/tech/comp/fnv/
+ */
+class FNVDigest implements Digest
 {
     public function hash($string, $length = null)
     {

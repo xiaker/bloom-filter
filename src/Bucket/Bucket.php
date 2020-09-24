@@ -13,13 +13,14 @@ abstract class Bucket
 
     public function __construct(int $total)
     {
-        $this->$total = $total;
+        $this->total = $total;
     }
 
     protected function warp($value)
     {
-        return '___xiaker:'.$value;
+        // PSR-16
+        return '___xiaker.'.$value;
     }
 
-    abstract public function get(string $key);
+    abstract public function dispatch(string $key);
 }
